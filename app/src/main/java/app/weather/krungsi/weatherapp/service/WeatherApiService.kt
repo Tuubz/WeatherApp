@@ -3,6 +3,7 @@ package app.weather.krungsi.weatherapp.service
 import app.weather.krungsi.weatherapp.model.Weather
 import io.reactivex.Observable
 import okhttp3.Dispatcher
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -22,6 +23,11 @@ interface WeatherApiService {
 
         fun create(): WeatherApiService {
             val okHttpClient = OkHttpClient.Builder()
+            val interceptor = Interceptor {
+                val request = it.request()?.newBuilder()?.addHeader("appid", "3d3fd63e6213686f96257818fddb1eaa")!!.build()
+                it.proceed(request)
+            }
+            okHttpClient.interceptors().add(interceptor)
             dispatcher.maxRequests = 1
             val retrofit = Retrofit.Builder()
                     .client(okHttpClient.dispatcher(dispatcher).build())
