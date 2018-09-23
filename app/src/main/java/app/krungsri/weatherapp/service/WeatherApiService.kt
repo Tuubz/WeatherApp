@@ -20,6 +20,9 @@ interface WeatherApiService {
     @GET("weather")
     fun getCurrentWeather(@Query("q") city: String, @Query("units") units: String): Observable<Weather>
 
+    @GET("forecast")
+    fun getForecastWeather(@Query("q") city: String, @Query("units") units: String, @Query("cnt") count: Int): Observable<List<Weather>>
+
     companion object Factory {
         private const val BASE_URL = "http://api.openweathermap.org/data/2.5/"
         private val dispatcher = Dispatcher()

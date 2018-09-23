@@ -10,4 +10,8 @@ class WeatherRepository(private val apiService: WeatherApiService) {
         return apiService.getCurrentWeather(city, units)
     }
 
+    fun getForecastWeather(city: String, units: String, count: Int): Observable<List<Weather>> {
+        return apiService.getForecastWeather(city, units, count)
+    }
+
 }
