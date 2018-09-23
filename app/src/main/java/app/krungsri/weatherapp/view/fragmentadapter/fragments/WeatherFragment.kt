@@ -14,16 +14,32 @@ import kotlinx.android.synthetic.main.fragment_weather.*
 
 class WeatherFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val weatherViewModel = ViewModelProviders.of(this).get(WeatherViewModel::class.java)
+    private lateinit var weatherViewModel : WeatherViewModel
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        init()
+        return inflater.inflate(R.layout.fragment_weather, container, false)
+    }
+
+    private fun init() {
+        initViewModel()
+        initObserver()
+        getData()
+    }
+
+    private fun initViewModel() {
+        weatherViewModel = ViewModelProviders.of(this).get(WeatherViewModel::class.java)
+    }
+
+    private fun initObserver() {
         weatherViewModel.weather.observe(this, Observer {
             val lat = it!!.coordinates.lat.toString()
             textest.text = lat
         })
+    }
 
+    private fun getData(){
         weatherViewModel.getCurrentWeather("Bangkok", "metric")
-        return inflater.inflate(R.layout.fragment_weather, container, false)
     }
 
     companion object {
