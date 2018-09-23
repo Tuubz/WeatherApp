@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import app.krungsri.weatherapp.model.Weather
+import app.krungsri.weatherapp.widgets.GlideApp
 import app.weather.krungsi.weatherapp.R
 import kotlinx.android.synthetic.main.fragment_weather_current.*
 import kotlinx.android.synthetic.main.list_item_weather.view.*
-import nimbl3.surveyapp.widgets.GlideApp
 
 
 class WeatherAdapter : RecyclerView.Adapter<WeatherAdapter.WeatherHolder>()  {

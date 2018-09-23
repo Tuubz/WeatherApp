@@ -8,10 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import app.krungsri.weatherapp.viewmodel.WeatherViewModel
+import app.krungsri.weatherapp.widgets.GlideApp
 import app.weather.krungsi.weatherapp.R
 import kotlinx.android.synthetic.main.activity_weather.*
 import kotlinx.android.synthetic.main.fragment_weather_current.*
-import nimbl3.surveyapp.widgets.GlideApp
 
 
 class WeatherCurrentFragment : Fragment() {
