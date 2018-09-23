@@ -2,8 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_favorite"
+        android:id="@+id/toolbar_right_icon"
         android:title=""
+        android:icon="@drawable/ic_celcius"
         app:showAsAction="ifRoom" />
 
 </menu>
