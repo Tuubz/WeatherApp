@@ -45,7 +45,7 @@ class WeatherCurrentFragment : Fragment() {
 
                 val imageName = "weather_${it.type.first().weather.toLowerCase()}"
                 GlideApp.with(this)
-                        .load(resources.getIdentifier(imageName, "drawable", activity!!.packageName))
+                        .load(resources.getIdentifier(imageName, "drawable", context!!.packageName))
                         .into(background)
             }
         })
