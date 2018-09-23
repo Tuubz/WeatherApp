@@ -10,6 +10,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
+import okhttp3.HttpUrl
+
+
 
 
 interface WeatherApiService {
@@ -18,13 +21,15 @@ interface WeatherApiService {
     fun getCurrentWeather(@Query("q") city: String, @Query("units") units: String): Observable<Weather>
 
     companion object Factory {
-        private const val BASE_URL = "api.openweathermap.org/data/2.5/"
+        private const val BASE_URL = "http://api.openweathermap.org/data/2.5/"
         private val dispatcher = Dispatcher()
 
         fun create(): WeatherApiService {
             val okHttpClient = OkHttpClient.Builder()
             val interceptor = Interceptor {
-                val request = it.request()?.newBuilder()?.addHeader("appid", "3d3fd63e6213686f96257818fddb1eaa")!!.build()
+                var request = it.request()
+                val url = request.url().newBuilder().addQueryParameter("appid", "3d3fd63e6213686f96257818fddb1eaa").build()
+                request = request.newBuilder().url(url).build()
                 it.proceed(request)
             }
             okHttpClient.interceptors().add(interceptor)
