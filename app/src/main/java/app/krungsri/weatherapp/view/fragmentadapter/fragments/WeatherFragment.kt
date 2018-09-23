@@ -14,7 +14,7 @@ class WeatherFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val weatherViewModel = ViewModelProviders.of(this).get(WeatherViewModel::class.java)
-        weatherViewModel.getCurrentWeather("Bangkok", "metric", "3d3fd63e6213686f96257818fddb1eaa")
+        weatherViewModel.getCurrentWeather("Bangkok", "metric")
         return inflater.inflate(R.layout.fragment_weather, container, false)
     }
 

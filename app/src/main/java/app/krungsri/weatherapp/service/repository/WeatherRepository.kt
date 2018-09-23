@@ -6,8 +6,8 @@ import io.reactivex.Observable
 
 class WeatherRepository(private val apiService: WeatherApiService) {
 
-    fun getCurrentWeather(city: String, units: String, appid: String): Observable<Weather> {
-        return apiService.getCurrentWeather(city, units, appid)
+    fun getCurrentWeather(city: String, units: String): Observable<Weather> {
+        return apiService.getCurrentWeather(city, units)
     }
 
 }

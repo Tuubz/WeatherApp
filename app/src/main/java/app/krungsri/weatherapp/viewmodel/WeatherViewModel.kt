@@ -16,8 +16,8 @@ class WeatherViewModel() : ViewModel() {
 
     private val weatherRepository = RepositoryProvider.provideRepository()
 
-    fun getCurrentWeather(city: String, units: String, appid: String) {
-        weatherRepository.getCurrentWeather(city, units, appid)
+    fun getCurrentWeather(city: String, units: String) {
+        weatherRepository.getCurrentWeather(city, units)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe ({ result ->
