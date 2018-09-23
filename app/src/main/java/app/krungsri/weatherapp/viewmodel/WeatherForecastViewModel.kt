@@ -5,25 +5,26 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.util.Log
 import app.krungsri.weatherapp.model.Weather
+import app.krungsri.weatherapp.model.WeatherList
 import app.krungsri.weatherapp.service.repository.RepositoryProvider
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 //class WeatherViewModel(private val weatherRepository: WeatherRepository) : ViewModel() {
 
-class WeatherViewModel : ViewModel() {
+class WeatherForecastViewModel : ViewModel() {
 
     private val weatherRepository = RepositoryProvider.provideRepository()
-    private val _weather = MutableLiveData<Weather>()
-    val weather : LiveData<Weather>
-        get() = _weather
+    private val _weathers = MutableLiveData<WeatherList>()
+    val weathers : LiveData<WeatherList>
+        get() = _weathers
 
-    fun getCurrentWeather(city: String, units: String) {
-        weatherRepository.getCurrentWeather(city, units)
+    fun getForecastWeather(city: String, units: String, count: Int) {
+        weatherRepository.getForecastWeather(city, units, count)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe ({ result ->
-                    _weather.value = Weather(result.metrics, result.type)
+                    _weathers.value = result
                 }, { error ->
                     Log.d("TOBIAS", error.message)
                 })

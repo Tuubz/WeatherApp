@@ -1,6 +1,7 @@
 package app.krungsri.weatherapp.service
 
 import app.krungsri.weatherapp.model.Weather
+import app.krungsri.weatherapp.model.WeatherList
 import io.reactivex.Observable
 import okhttp3.Dispatcher
 import okhttp3.Interceptor
@@ -21,7 +22,7 @@ interface WeatherApiService {
     fun getCurrentWeather(@Query("q") city: String, @Query("units") units: String): Observable<Weather>
 
     @GET("forecast")
-    fun getForecastWeather(@Query("q") city: String, @Query("units") units: String, @Query("cnt") count: Int): Observable<List<Weather>>
+    fun getForecastWeather(@Query("q") city: String, @Query("units") units: String, @Query("cnt") count: Int): Observable<WeatherList>
 
     companion object Factory {
         private const val BASE_URL = "http://api.openweathermap.org/data/2.5/"
