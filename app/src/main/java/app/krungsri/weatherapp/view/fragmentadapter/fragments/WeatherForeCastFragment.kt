@@ -36,8 +36,7 @@ class WeatherForeCastFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setListeners()
-        getData()
+        getData("metric")
     }
 
 
@@ -64,18 +63,8 @@ class WeatherForeCastFragment : Fragment() {
         recyclerView.adapter = recyclerAdapter
     }
 
-    private fun getData(){
-        weatherForecastViewModel.getForecastWeather(activity!!.cityInput.text.toString(), "metric", 7)
-    }
-
-    private fun setListeners() {
-        activity!!.cityInput.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                getData()
-                return@OnKeyListener true
-            }
-            false
-        })
+    fun getData(units: String){
+        weatherForecastViewModel.getForecastWeather(activity!!.cityInput.text.toString(), units, 7)
     }
 
     companion object {
