@@ -3,11 +3,8 @@ package app.krungsri.weatherapp.viewmodel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.util.Log
-import app.krungsri.weatherapp.model.Coordinates
 import app.krungsri.weatherapp.model.Weather
 import app.krungsri.weatherapp.service.repository.RepositoryProvider
-import app.krungsri.weatherapp.service.repository.WeatherRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -25,7 +22,7 @@ class WeatherViewModel : ViewModel() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe ({ result ->
-                    _weather.value = Weather(result.coordinates, result.metrics, result.type)
+                    _weather.value = Weather(result.metrics, result.type)
                 }, { error ->
 
                 })
