@@ -10,11 +10,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.EditText
 import app.krungsri.weatherapp.viewmodel.WeatherViewModel
 import app.weather.krungsi.weatherapp.R
+import kotlinx.android.synthetic.main.activity_weather.*
 import kotlinx.android.synthetic.main.fragment_weather.*
-import android.widget.Toast
-
 
 
 class WeatherFragment : Fragment() {
@@ -28,6 +28,11 @@ class WeatherFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         setListeners()
         getData()
     }
@@ -51,11 +56,11 @@ class WeatherFragment : Fragment() {
     }
 
     private fun getData(){
-        weatherViewModel.getCurrentWeather(cityInput.text.toString(), "metric")
+        weatherViewModel.getCurrentWeather(activity!!.cityInput.text.toString(), "metric")
     }
 
     private fun setListeners() {
-        cityInput.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+        activity!!.cityInput.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                 getData()
                 return@OnKeyListener true
