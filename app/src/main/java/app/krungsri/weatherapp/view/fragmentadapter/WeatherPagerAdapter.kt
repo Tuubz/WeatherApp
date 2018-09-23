@@ -24,5 +24,14 @@ class WeatherPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapt
         return 2
     }
 
+    override fun getPageTitle(position: Int): CharSequence {
+        return when (position) {
+            0 -> "Current Weather"
+            else -> {
+                return "7 Days Forecast"
+            }
+        }
+    }
+
 
 }

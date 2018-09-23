@@ -34,6 +34,7 @@ class WeatherActivity : AppCompatActivity() {
     private fun initViewPager() {
         pagerAdapter = WeatherPagerAdapter(supportFragmentManager)
         viewPager.adapter = pagerAdapter
+        tabLayout.setupWithViewPager(viewPager)
     }
 
 }
