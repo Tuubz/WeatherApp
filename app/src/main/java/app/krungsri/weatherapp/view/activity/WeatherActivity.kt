@@ -19,7 +19,17 @@ class WeatherActivity : AppCompatActivity() {
 
     private fun init() {
         initViewPager()
+        initToolbar()
     }
+
+    private fun initToolbar(){
+        setSupportActionBar(toolbar)
+        toolbar.apply {
+//            setNavigationIcon(R.drawable.ic_refresh)
+        }
+        supportActionBar?.title = ""
+    }
+
 
     private fun initViewPager() {
         pagerAdapter = WeatherPagerAdapter(supportFragmentManager)
