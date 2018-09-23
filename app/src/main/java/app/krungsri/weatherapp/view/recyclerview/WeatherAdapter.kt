@@ -4,10 +4,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import app.krungsri.weatherapp.model.Weather
 import app.weather.krungsi.weatherapp.R
+import kotlinx.android.synthetic.main.fragment_weather_current.*
 import kotlinx.android.synthetic.main.list_item_weather.view.*
+import nimbl3.surveyapp.widgets.GlideApp
 
 
 class WeatherAdapter : RecyclerView.Adapter<WeatherAdapter.WeatherHolder>()  {
@@ -25,6 +28,13 @@ class WeatherAdapter : RecyclerView.Adapter<WeatherAdapter.WeatherHolder>()  {
 
     override fun onBindViewHolder(holder: WeatherAdapter.WeatherHolder, position: Int) {
         holder.temperature.text = "${weathers[position].metrics.temperature}"
+
+        val imageName = "ic_${weathers[position].type.first().weather.toLowerCase()}"
+        val context = holder.itemView.context
+        GlideApp.with(context)
+                .load(context.resources.getIdentifier(imageName, "drawable", context.packageName))
+                .into(holder.icon)
+
     }
 
     fun load(newWeathers : ArrayList<Weather>) {
@@ -40,6 +50,9 @@ class WeatherAdapter : RecyclerView.Adapter<WeatherAdapter.WeatherHolder>()  {
 
     class WeatherHolder(v: View) : RecyclerView.ViewHolder(v) {
         val temperature : TextView = v.temperatureText
+        val icon : ImageView = v.weatherIcon
+
+
     }
 
 }

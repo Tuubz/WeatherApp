@@ -11,6 +11,7 @@ import app.krungsri.weatherapp.viewmodel.WeatherViewModel
 import app.weather.krungsi.weatherapp.R
 import kotlinx.android.synthetic.main.activity_weather.*
 import kotlinx.android.synthetic.main.fragment_weather_current.*
+import nimbl3.surveyapp.widgets.GlideApp
 
 
 class WeatherCurrentFragment : Fragment() {
@@ -41,9 +42,16 @@ class WeatherCurrentFragment : Fragment() {
             if(it != null) {
                 temperatureText.text = "${it.metrics.temperature}"
                 humidityText.text = "${it.metrics.humidity}"
+
+                val imageName = "weather_${it.type.first().weather.toLowerCase()}"
+                GlideApp.with(this)
+                        .load(resources.getIdentifier(imageName, "drawable", context!!.packageName))
+                        .into(background)
             }
         })
     }
+
+
 
     fun getData(units: String){
         weatherViewModel.getCurrentWeather(activity!!.cityInput.text.toString(), units)
