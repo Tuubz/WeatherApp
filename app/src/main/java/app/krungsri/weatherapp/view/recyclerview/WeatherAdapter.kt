@@ -28,7 +28,13 @@ class WeatherAdapter : RecyclerView.Adapter<WeatherAdapter.WeatherHolder>()  {
     }
 
     fun load(newWeathers : ArrayList<Weather>) {
+        clear()
         weathers.addAll(newWeathers)
+        notifyDataSetChanged()
+    }
+
+    fun clear(){
+        weathers.clear()
         notifyDataSetChanged()
     }
 

@@ -5,13 +5,13 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.PagerAdapter
 import app.krungsri.weatherapp.view.fragmentadapter.fragments.WeatherForeCastFragment
-import app.krungsri.weatherapp.view.fragmentadapter.fragments.WeatherFragment
+import app.krungsri.weatherapp.view.fragmentadapter.fragments.WeatherCurrentFragment
 
 class WeatherPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
 
     override fun getItem(position: Int): Fragment {
         return when(position) {
-            0 -> WeatherFragment.newInstance()
+            0 -> WeatherCurrentFragment.newInstance()
             else -> WeatherForeCastFragment.newInstance()
         }
     }
