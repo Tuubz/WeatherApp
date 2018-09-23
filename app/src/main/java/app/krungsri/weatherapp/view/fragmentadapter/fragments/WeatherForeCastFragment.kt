@@ -36,7 +36,7 @@ class WeatherForeCastFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        getData()
+        getData("metric")
     }
 
 
@@ -63,8 +63,8 @@ class WeatherForeCastFragment : Fragment() {
         recyclerView.adapter = recyclerAdapter
     }
 
-    fun getData(){
-        weatherForecastViewModel.getForecastWeather(activity!!.cityInput.text.toString(), "metric", 7)
+    fun getData(units: String){
+        weatherForecastViewModel.getForecastWeather(activity!!.cityInput.text.toString(), units, 7)
     }
 
     companion object {

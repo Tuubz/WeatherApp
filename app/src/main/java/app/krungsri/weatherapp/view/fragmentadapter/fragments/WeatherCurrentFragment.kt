@@ -22,14 +22,9 @@ class WeatherCurrentFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_weather_current, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        getData()
+        getData("metric")
     }
 
     private fun init() {
@@ -50,8 +45,8 @@ class WeatherCurrentFragment : Fragment() {
         })
     }
 
-    fun getData(){
-        weatherViewModel.getCurrentWeather(activity!!.cityInput.text.toString(), "metric")
+    fun getData(units: String){
+        weatherViewModel.getCurrentWeather(activity!!.cityInput.text.toString(), units)
     }
 
 

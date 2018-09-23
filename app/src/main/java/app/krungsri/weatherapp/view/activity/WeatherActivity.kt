@@ -45,10 +45,12 @@ class WeatherActivity : AppCompatActivity() {
     }
 
     private fun setListeners() {
+
+//        imperial
         cityInput.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                (supportFragmentManager.fragments[0] as WeatherCurrentFragment).getData()
-                (supportFragmentManager.fragments[1] as WeatherForeCastFragment).getData()
+                (supportFragmentManager.fragments[0] as WeatherCurrentFragment).getData("metric")
+                (supportFragmentManager.fragments[1] as WeatherForeCastFragment).getData("metric")
                 return@OnKeyListener true
             }
             false
