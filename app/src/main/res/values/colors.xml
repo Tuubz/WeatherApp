@@ -8,4 +8,5 @@
     <color name="clear">#cfd7e5</color>
     <color name="clouds">#98A9C7</color>
     <color name="rain">#6c84af</color>
+    <color name="full_transparent">#00FFFFFF</color>
 </resources>

@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +20,7 @@ class WeatherForeCastFragment : Fragment() {
 
     private lateinit var weatherForecastViewModel : WeatherForecastViewModel
     private lateinit var recyclerAdapter: WeatherAdapter
-
+    private var unitsTemp = "metric"
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -36,7 +35,7 @@ class WeatherForeCastFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        getData("metric")
+        getData(unitsTemp)
     }
 
 
@@ -52,7 +51,7 @@ class WeatherForeCastFragment : Fragment() {
     private fun initObserver() {
         weatherForecastViewModel.weathers.observe(this, Observer {
             if(it != null) {
-                recyclerAdapter.load(it.weathers)
+                recyclerAdapter.load(it.weathers, unitsTemp)
             }
         })
     }
@@ -64,7 +63,8 @@ class WeatherForeCastFragment : Fragment() {
     }
 
     fun getData(units: String){
-        weatherForecastViewModel.getForecastWeather(activity!!.cityInput.text.toString(), units, 7)
+        unitsTemp = units
+        weatherForecastViewModel.getForecastWeather(activity!!.cityInput.text.toString(), units, 16)
     }
 
     companion object {

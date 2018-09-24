@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.res.ResourcesCompat
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +14,16 @@ import app.krungsri.weatherapp.widgets.GlideApp
 import app.weather.krungsi.weatherapp.R
 import kotlinx.android.synthetic.main.activity_weather.*
 import kotlinx.android.synthetic.main.fragment_weather_current.*
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 
 class WeatherCurrentFragment : Fragment() {
 
     private lateinit var weatherViewModel : WeatherViewModel
+    private var unitsTemp = "metric"
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         init()
@@ -26,7 +32,7 @@ class WeatherCurrentFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        getData("metric")
+        getData(unitsTemp)
     }
 
     private fun init() {
@@ -41,35 +47,46 @@ class WeatherCurrentFragment : Fragment() {
     private fun initObserver() {
         weatherViewModel.weather.observe(this, Observer {
             if(it != null) {
-                temperatureText.text = "${it.metrics.temperature}"
-                humidityText.text = "${it.metrics.humidity}"
 
+                //Date
+                val date = Date(it.date * 1000)
+                val fmt = SimpleDateFormat("dd/MM/yyyy", Locale.TAIWAN)
+                fmt.timeZone = TimeZone.getTimeZone("Asia/Thailand")
+                dateText.text = fmt.format(date)
+
+                //Details
+                temperatureText.text = "${Math.round(it.metrics.temperature)}"
+                humidityText.text = "Humidity: ${it.metrics.humidity}%"
+
+                //WeatherType
                 val weather = it.type.first().weather
+                weatherType.text = weather
 
-                if (weather == "Clear")  {
-                    background.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.clear, null))
-                } else if (weather == "Clouds") {
-                    background.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.clouds, null))
+                //Background
+                val id = resources.getIdentifier(weather.toLowerCase(), "color", context!!.packageName)
+                background.setBackgroundColor(ResourcesCompat.getColor(resources, id, null))
 
-                } else {
-                    background.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.rain, null))
-                }
-
-
-//                val imageName = "ic_${it.type.first().weather.toLowerCase()}"
-//                GlideApp.with(this)
-//                        .load(resources.getIdentifier(imageName, "drawable", context!!.packageName))
-//                        .into(background)
+                //Icon
+                GlideApp.with(this)
+                        .load(resources.getIdentifier("ic_${weather.toLowerCase()}", "drawable", context!!.packageName))
+                        .into(bigWeatherIcon)
             }
         })
     }
 
-
-
     fun getData(units: String){
+        unitsTemp = units
+        switchDegrees(unitsTemp)
         weatherViewModel.getCurrentWeather(activity!!.cityInput.text.toString(), units)
     }
 
+    private fun switchDegrees(units: String) {
+        if(units == "metric") {
+            degreesType.text = resources.getString(R.string.celsius)
+        } else {
+            degreesType.text = resources.getString(R.string.fahrenheit)
+        }
+    }
 
     companion object {
         fun newInstance(): WeatherCurrentFragment {
