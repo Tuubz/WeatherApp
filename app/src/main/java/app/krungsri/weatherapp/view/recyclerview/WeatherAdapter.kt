@@ -32,7 +32,7 @@ class WeatherAdapter : RecyclerView.Adapter<WeatherAdapter.WeatherHolder>()  {
 
     override fun onBindViewHolder(holder: WeatherAdapter.WeatherHolder, position: Int) {
         val date = Date(weathers[position].date * 1000)
-        val fmt = SimpleDateFormat("HH:mm:ss", Locale.TAIWAN)
+        val fmt = SimpleDateFormat("dd/MM/yyyy - HH:mm:ss", Locale.TAIWAN)
         fmt.timeZone = TimeZone.getTimeZone("Asia/Thailand")
 
         holder.dateText.text = fmt.format(date)
@@ -61,10 +61,9 @@ class WeatherAdapter : RecyclerView.Adapter<WeatherAdapter.WeatherHolder>()  {
     }
 
     private fun switchDegrees(units: String) : String {
-        if(units == "metric") {
-            return App.applicationContext().resources.getString(R.string.celsius)
-        } else {
-            return App.applicationContext().resources.getString(R.string.fahrenheit)
+        return when(units) {
+            "metric" -> App.applicationContext().resources.getString(R.string.celsius)
+            else -> App.applicationContext().resources.getString(R.string.fahrenheit)
         }
     }
 

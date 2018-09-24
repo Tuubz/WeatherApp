@@ -64,7 +64,7 @@ class WeatherForeCastFragment : Fragment() {
 
     fun getData(units: String){
         unitsTemp = units
-        weatherForecastViewModel.getForecastWeather(activity!!.cityInput.text.toString(), units, 7)
+        weatherForecastViewModel.getForecastWeather(activity!!.cityInput.text.toString(), units, 16)
     }
 
     companion object {

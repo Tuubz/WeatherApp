@@ -22,6 +22,8 @@ import java.util.*
 class WeatherCurrentFragment : Fragment() {
 
     private lateinit var weatherViewModel : WeatherViewModel
+    private var unitsTemp = "metric"
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         init()
@@ -30,7 +32,7 @@ class WeatherCurrentFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        getData("metric")
+        getData(unitsTemp)
     }
 
     private fun init() {
@@ -49,6 +51,7 @@ class WeatherCurrentFragment : Fragment() {
                 //Date
                 val date = Date(it.date * 1000)
                 val fmt = SimpleDateFormat("dd/MM/yyyy", Locale.TAIWAN)
+                fmt.timeZone = TimeZone.getTimeZone("Asia/Thailand")
                 dateText.text = fmt.format(date)
 
                 //Details
@@ -72,7 +75,8 @@ class WeatherCurrentFragment : Fragment() {
     }
 
     fun getData(units: String){
-        switchDegrees(units)
+        unitsTemp = units
+        switchDegrees(unitsTemp)
         weatherViewModel.getCurrentWeather(activity!!.cityInput.text.toString(), units)
     }
 
