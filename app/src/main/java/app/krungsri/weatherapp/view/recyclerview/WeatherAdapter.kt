@@ -11,6 +11,8 @@ import app.krungsri.weatherapp.widgets.GlideApp
 import app.weather.krungsi.weatherapp.R
 import kotlinx.android.synthetic.main.fragment_weather_current.*
 import kotlinx.android.synthetic.main.list_item_weather.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class WeatherAdapter : RecyclerView.Adapter<WeatherAdapter.WeatherHolder>()  {
@@ -27,7 +29,14 @@ class WeatherAdapter : RecyclerView.Adapter<WeatherAdapter.WeatherHolder>()  {
     }
 
     override fun onBindViewHolder(holder: WeatherAdapter.WeatherHolder, position: Int) {
-        holder.temperature.text = "${weathers[position].metrics.temperature}"
+        val date = Date(weathers[position].date * 1000)
+        val fmt = SimpleDateFormat("HH:mm:ss", Locale.TAIWAN)
+        fmt.timeZone = TimeZone.getTimeZone("Asia/Thailand")
+
+        holder.dateText.text = fmt.format(date)
+        holder.weatherText.text = weathers[position].type.first().weather
+        holder.temperatureText.text = "${weathers[position].metrics.temperature}"
+        holder.humidityText.text = "${weathers[position].metrics.humidity}%"
 
         val imageName = "ic_${weathers[position].type.first().weather.toLowerCase()}"
         val context = holder.itemView.context
@@ -49,7 +58,10 @@ class WeatherAdapter : RecyclerView.Adapter<WeatherAdapter.WeatherHolder>()  {
     }
 
     class WeatherHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val temperature : TextView = v.temperatureText
+        val dateText : TextView = v.dateSmallText
+        val weatherText : TextView = v.weatherSmallText
+        val temperatureText : TextView = v.temperatureSmallText
+        val humidityText : TextView = v.humiditySmallText
         val icon : ImageView = v.weatherIcon
 
 
