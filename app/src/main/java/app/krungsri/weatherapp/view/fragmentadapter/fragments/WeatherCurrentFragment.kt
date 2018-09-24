@@ -5,11 +5,10 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.res.ResourcesCompat
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import app.krungsri.weatherapp.viewmodel.WeatherViewModel
+import app.krungsri.weatherapp.viewmodel.WeatherCurrentViewModel
 import app.krungsri.weatherapp.widgets.GlideApp
 import app.weather.krungsi.weatherapp.R
 import kotlinx.android.synthetic.main.activity_weather.*
@@ -21,7 +20,7 @@ import java.util.*
 
 class WeatherCurrentFragment : Fragment() {
 
-    private lateinit var weatherViewModel : WeatherViewModel
+    private lateinit var weatherViewModel : WeatherCurrentViewModel
     private var unitsTemp = "metric"
 
 
@@ -41,7 +40,7 @@ class WeatherCurrentFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        weatherViewModel = ViewModelProviders.of(this).get(WeatherViewModel::class.java)
+        weatherViewModel = ViewModelProviders.of(this).get(WeatherCurrentViewModel::class.java)
     }
 
     private fun initObserver() {

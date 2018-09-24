@@ -4,14 +4,14 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.util.Log
+import android.widget.Toast
+import app.krungsri.weatherapp.App
 import app.krungsri.weatherapp.model.Weather
 import app.krungsri.weatherapp.service.repository.RepositoryProvider
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-//class WeatherViewModel(private val weatherRepository: WeatherRepository) : ViewModel() {
-
-class WeatherViewModel : ViewModel() {
+class WeatherCurrentViewModel : ViewModel() {
 
     private val weatherRepository = RepositoryProvider.provideRepository()
     private val _weather = MutableLiveData<Weather>()
@@ -25,7 +25,7 @@ class WeatherViewModel : ViewModel() {
                 .subscribe ({ result ->
                     _weather.value = Weather(result.metrics, result.type, result.date)
                 }, { error ->
-                    Log.d("TOBIAS", error.message)
+                    Toast.makeText(App.applicationContext(), error.message, Toast.LENGTH_SHORT).show()
                 })
     }
 }
