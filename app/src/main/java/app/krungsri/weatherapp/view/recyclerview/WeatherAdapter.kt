@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import app.krungsri.weatherapp.App
 import app.krungsri.weatherapp.model.Weather
 import app.krungsri.weatherapp.widgets.GlideApp
 import app.weather.krungsi.weatherapp.R
+import kotlinx.android.synthetic.main.fragment_weather_current.*
 import kotlinx.android.synthetic.main.list_item_weather.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -17,6 +19,7 @@ import java.util.*
 class WeatherAdapter : RecyclerView.Adapter<WeatherAdapter.WeatherHolder>()  {
 
     private var weathers: ArrayList<Weather> = ArrayList()
+    private lateinit var unitsTemp: String
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): WeatherAdapter.WeatherHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.list_item_weather, parent, false)
@@ -34,7 +37,7 @@ class WeatherAdapter : RecyclerView.Adapter<WeatherAdapter.WeatherHolder>()  {
 
         holder.dateText.text = fmt.format(date)
         holder.weatherText.text = weathers[position].type.first().weather
-        holder.temperatureText.text = "${Math.round(weathers[position].metrics.temperature)}"
+        holder.temperatureText.text = "${Math.round(weathers[position].metrics.temperature)}${switchDegrees(unitsTemp)}"
         holder.humidityText.text = "${weathers[position].metrics.humidity}%"
 
         val imageName = "ic_${weathers[position].type.first().weather.toLowerCase()}"
@@ -45,7 +48,8 @@ class WeatherAdapter : RecyclerView.Adapter<WeatherAdapter.WeatherHolder>()  {
 
     }
 
-    fun load(newWeathers : ArrayList<Weather>) {
+    fun load(newWeathers : ArrayList<Weather>, units: String) {
+        unitsTemp = units
         clear()
         weathers.addAll(newWeathers)
         notifyDataSetChanged()
@@ -54,6 +58,14 @@ class WeatherAdapter : RecyclerView.Adapter<WeatherAdapter.WeatherHolder>()  {
     fun clear(){
         weathers.clear()
         notifyDataSetChanged()
+    }
+
+    private fun switchDegrees(units: String) : String {
+        if(units == "metric") {
+            return App.applicationContext().resources.getString(R.string.celsius)
+        } else {
+            return App.applicationContext().resources.getString(R.string.fahrenheit)
+        }
     }
 
     class WeatherHolder(v: View) : RecyclerView.ViewHolder(v) {
