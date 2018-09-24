@@ -24,6 +24,7 @@ class WeatherActivity : AppCompatActivity() {
     private var temperatureType = "metric"
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_weather)
         init()
