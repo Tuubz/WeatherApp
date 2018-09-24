@@ -1,7 +1,9 @@
 package app.krungsri.weatherapp.service
 
+import app.krungsri.weatherapp.App
 import app.krungsri.weatherapp.model.Weather
 import app.krungsri.weatherapp.model.WeatherList
+import app.weather.krungsi.weatherapp.R
 import io.reactivex.Observable
 import okhttp3.Dispatcher
 import okhttp3.Interceptor
@@ -29,7 +31,7 @@ interface WeatherApiService {
             val okHttpClient = OkHttpClient.Builder()
             val interceptor = Interceptor {
                 var request = it.request()
-                val url = request.url().newBuilder().addQueryParameter("appid", "3d3fd63e6213686f96257818fddb1eaa").build()
+                val url = request.url().newBuilder().addQueryParameter("appid", App.applicationContext().getString(R.string.krungsri_api)).build()
                 request = request.newBuilder().url(url).build()
                 it.proceed(request)
             }
