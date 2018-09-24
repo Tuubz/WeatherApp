@@ -28,7 +28,7 @@ class WeatherPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapt
         return when (position) {
             0 -> "Current Weather"
             else -> {
-                return "7 Days Forecast"
+                return "3-Hours Forecast"
             }
         }
     }
