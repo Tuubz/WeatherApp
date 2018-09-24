@@ -1,5 +1,6 @@
 package app.krungsri.weatherapp.view.activity
 
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -12,6 +13,9 @@ import app.krungsri.weatherapp.view.fragmentadapter.fragments.WeatherCurrentFrag
 import app.krungsri.weatherapp.view.fragmentadapter.fragments.WeatherForeCastFragment
 import app.weather.krungsi.weatherapp.R
 import kotlinx.android.synthetic.main.activity_weather.*
+import android.content.Context.INPUT_METHOD_SERVICE
+import android.support.v4.content.ContextCompat.getSystemService
+import android.view.inputmethod.InputMethodManager
 
 
 class WeatherActivity : AppCompatActivity() {
@@ -69,6 +73,7 @@ class WeatherActivity : AppCompatActivity() {
         cityInput.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                 getData(temperatureType)
+                hideKeyboard()
                 return@OnKeyListener true
             }
             false
@@ -79,4 +84,11 @@ class WeatherActivity : AppCompatActivity() {
         (supportFragmentManager.fragments[0] as WeatherCurrentFragment).getData(units)
         (supportFragmentManager.fragments[1] as WeatherForeCastFragment).getData(units)
     }
+
+    private fun hideKeyboard() {
+        val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.toggleSoftInput(0, 0)
+    }
+
+
 }
