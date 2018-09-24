@@ -79,7 +79,4 @@ class WeatherActivity : AppCompatActivity() {
         (supportFragmentManager.fragments[0] as WeatherCurrentFragment).getData(units)
         (supportFragmentManager.fragments[1] as WeatherForeCastFragment).getData(units)
     }
-
-
-
 }
