@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.res.ResourcesCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,10 +44,22 @@ class WeatherCurrentFragment : Fragment() {
                 temperatureText.text = "${it.metrics.temperature}"
                 humidityText.text = "${it.metrics.humidity}"
 
-                val imageName = "weather_${it.type.first().weather.toLowerCase()}"
-                GlideApp.with(this)
-                        .load(resources.getIdentifier(imageName, "drawable", context!!.packageName))
-                        .into(background)
+                val weather = it.type.first().weather
+
+                if (weather == "Clear")  {
+                    background.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.clear, null))
+                } else if (weather == "Clouds") {
+                    background.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.clouds, null))
+
+                } else {
+                    background.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.rain, null))
+                }
+
+
+//                val imageName = "ic_${it.type.first().weather.toLowerCase()}"
+//                GlideApp.with(this)
+//                        .load(resources.getIdentifier(imageName, "drawable", context!!.packageName))
+//                        .into(background)
             }
         })
     }

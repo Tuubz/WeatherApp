@@ -23,7 +23,7 @@ class WeatherViewModel : ViewModel() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe ({ result ->
-                    _weather.value = Weather(result.metrics, result.type)
+                    _weather.value = Weather(result.metrics, result.type, result.date)
                 }, { error ->
                     Log.d("TOBIAS", error.message)
                 })
